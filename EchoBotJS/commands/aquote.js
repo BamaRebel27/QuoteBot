@@ -7,7 +7,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('aquote')
         .setDescription('Sends a quote!')
-        .addStringOption(option =>
+        .addNumberOption(option =>
             option.setName('number')
                 .setDescription('Number of quote to be replied!')
                 .setRequired(true)),
@@ -16,10 +16,10 @@ module.exports = {
         const data = JSON.parse(fs.readFileSync('quotes.json'));
 
         // Get number string and check it. Then convert to a variable
-        const numberInput = interaction.options.getString('number');
+        const numberInput = interaction.options.getNumber('number');
         var quoteID;
 
-        if (!isNaN(Number(numberInput)) && numberInput <= quoteTotal && numberInput >= 1) {
+        if (numberInput <= quoteTotal && numberInput >= 1) {
             quoteID = Number(numberInput);
             await interaction.deferReply()
         } else {
@@ -46,6 +46,7 @@ module.exports = {
         interaction.editReply({ embeds: [quote_addedEmbed] });
     }
 };
+
 
 
 
