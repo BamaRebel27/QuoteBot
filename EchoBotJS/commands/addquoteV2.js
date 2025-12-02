@@ -17,6 +17,14 @@ module.exports = {
                 .setDescription('Author of quote!')
                 .setRequired(true)),
      async execute(interaction) {
+
+         // Const for role and checking if member has role to execute command
+        const requiredRoleId = '1445508130430648331'
+        
+        if (!interaction.member.roles.cache.has(requiredRoleId)) {
+            return interaction.reply({ content: 'You do not have the required role!', flags: MessageFlags.Ephemeral })
+        }
+         
         try {
             // Strings for JS object
             const quote = interaction.options.getString('quote');
@@ -75,3 +83,4 @@ module.exports = {
      }
     
 }};
+
