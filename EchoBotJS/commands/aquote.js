@@ -19,7 +19,7 @@ module.exports = {
         const numberInput = interaction.options.getString('number');
         var quoteID;
 
-        if (!isNaN(Number(numberInput)) && numberInput <= quoteTotal) {
+        if (!isNaN(Number(numberInput)) && numberInput <= quoteTotal && numberInput >= 1) {
             quoteID = Number(numberInput);
             await interaction.deferReply()
         } else {
@@ -46,5 +46,6 @@ module.exports = {
         interaction.editReply({ embeds: [quote_addedEmbed] });
     }
 };
+
 
 
