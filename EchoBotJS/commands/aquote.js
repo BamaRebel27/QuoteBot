@@ -19,11 +19,15 @@ module.exports = {
         const numberInput = interaction.options.getString('number');
         var quoteID;
 
-        if (!isNaN(Number(numberInput))) {
+        if (!isNaN(Number(numberInput)) && numberInput <= quoteTotal) {
             quoteID = Number(numberInput);
             await interaction.deferReply()
         } else {
-            interaction.reply({ content: "The input should be a number not text!", flags: MessageFlags.Ephemeral})
+            await interaction.reply({
+                content: `The input must be a number and we only have ${quoteTotal} quotes!`,
+                flags: MessageFlags.Ephemeral
+                
+            })
             return;
         }
         
@@ -42,4 +46,5 @@ module.exports = {
         interaction.editReply({ embeds: [quote_addedEmbed] });
     }
 };
+
 
