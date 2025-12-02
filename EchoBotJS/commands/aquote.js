@@ -24,7 +24,7 @@ module.exports = {
             await interaction.deferReply()
         } else {
             await interaction.reply({
-                content: `The input must be a number and we only have ${quoteTotal} quotes!`,
+                content: `The input must be a number 1-${quoteTotal}!`,
                 flags: MessageFlags.Ephemeral
                 
             })
@@ -46,6 +46,7 @@ module.exports = {
         interaction.editReply({ embeds: [quote_addedEmbed] });
     }
 };
+
 
 
 
