@@ -1,6 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const fs = require('fs');
 
+// Where to store your quotes.
+const quotesFilePath = 'quotes.json';
+
 // Command to get a random quote: /quote
 module.exports = {
     cooldown: 600,
@@ -10,23 +13,23 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply()
         // Load jsonData
-        const data = JSON.parse(fs.readFileSync('quotes.json'));
+        const quotesJsonData = JSON.parse(fs.readFileSync(quotesFilePath));
 
         // Random ID Generator
-        const min = 1;
-        const max = (data.length + 1)
+        const minQuoteId = 1;
+        const maxQuoteId = (quotesJsonData.length + 1)
 
-        let randomNum = Math.floor(Math.random() * (max - min)) + min;
-        let i = randomNum--
+        let randomQuoteIndex = Math.floor(Math.random() * (maxQuoteId - minQuoteId)) + minQuoteId;
+        let randomQuoteId = randomQuoteIndex--
         
         // const data for the embed
-        const author = (data[randomNum].author);
-        const quote = (data[randomNum].quote);
+        const author = (quotesJsonData[randomQuoteIndex].author);
+        const quote = (quotesJsonData[randomQuoteIndex].quote);
         
         // const for embed data
         const quote_addedEmbed = new EmbedBuilder()
         .setColor(0xb07a70)
-        .setTitle(`Random Quote - #${i}`)
+        .setTitle(`Random Quote - #${randomQuoteId}`)
         .setDescription(`"*${quote}*" - ${author}`)
         
         await interaction.editReply({ embeds: [quote_addedEmbed] });
