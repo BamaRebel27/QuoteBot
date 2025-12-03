@@ -1,6 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder, MessageFlags, PermissionsBitField } = require('discord.js');
 const fs = require('fs');
 
+// Where to store your quotes.
+const quotesFilePath = 'quotes.json';
+
 // Command to delete a quote from 'quotes.json'
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,15 +24,15 @@ module.exports = {
         }
 
         // Const for data
-        let data = JSON.parse(fs.readFileSync('quotes.json'));
+        let quotesJsonData = JSON.parse(fs.readFileSync(quotesFilePath));
 
         // Get number string and check it. Then convert to a variable
-        const numberInput = interaction.options.getNumber('number');
-        var quoteID;
-        const quoteTotal = data.length
+        const quoteIdInput = interaction.options.getNumber('number');
+        var quoteIndex;
+        const quoteTotal = quotesJsonData.length
 
-        if (numberInput <= quoteTotal && numberInput >= 1) {
-            quoteID = Number(numberInput);
+        if (quoteIdInput <= quoteTotal && quoteIdInput >= 1) {
+            quoteIndex = Number(quoteIdInput);
             await interaction.deferReply()
         } else {
             await interaction.reply({
@@ -39,12 +42,11 @@ module.exports = {
             return;
         }
         
-        var i = quoteID--
-        
-        // Removing the quote and rewriting the .json
-        const quoteArray = data
+        var quoteID = quoteIndex--
 
-        let indexContent = quoteArray[quoteID]
+        const quoteArray = quotesJsonData
+
+        let indexContent = quoteArray[quoteIndex]
 
         const index = quoteArray.indexOf(indexContent)
 
@@ -53,11 +55,8 @@ module.exports = {
         }
 
         const newQuoteArray = JSON.stringify(quoteArray, null, 2)
-        fs.writeFileSync('quotes.json', newQuoteArray)
+        fs.writeFileSync(quotesFilePath, newQuoteArray)
 
-        
-        await interaction.editReply({ content: `Quote #${i} has been deleted!`})
-        
-
+        await interaction.editReply({ content: `Quote #${quoteID} has been deleted!`})
     }
 }
