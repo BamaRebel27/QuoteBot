@@ -6,7 +6,7 @@ const quotesFilePath = 'quotes.json';
 
 // Command to add a new quote: /addquote
 module.exports = {
-    cooldown: 60,
+    userCooldown: 60,
     data: new SlashCommandBuilder()
         .setName('addquote')
         .setDescription('Add a quote to database')
@@ -85,3 +85,4 @@ module.exports = {
      }
     
 }};
+
