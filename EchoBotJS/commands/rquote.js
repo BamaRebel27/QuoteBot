@@ -6,7 +6,7 @@ const quotesFilePath = 'quotes.json';
 
 // Command to get a random quote: /quote
 module.exports = {
-    cooldown: 600,
+    globalCooldown: 600,
     data: new SlashCommandBuilder()
         .setName('rquote')
         .setDescription('Sends a random quote!'),
@@ -36,3 +36,4 @@ module.exports = {
 
     }
 };
+
