@@ -6,6 +6,7 @@ const quotesFilePath = 'quotes.json';
 
 // Command to delete a quote from 'quotes.json'
 module.exports = {
+    globalCooldown: 60,
     data: new SlashCommandBuilder()
         .setName('delquote')
         .setDescription('Deletes a quote from storage!')
