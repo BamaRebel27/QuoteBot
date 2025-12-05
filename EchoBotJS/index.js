@@ -169,6 +169,7 @@ client.on(Events.InteractionCreate, async interaction => {
     timestamps.set(interaction.user.id, now);
     timestamps.set(command.data.name, now);
     setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+    setTimeout(() => timestamps.delete(command.data.name), cooldownAmount);
 
     try {
         await command.execute(interaction);
@@ -191,3 +192,4 @@ client.on(Events.InteractionCreate, async interaction => {
 
 
 client.login(process.env.BOT_TOKEN);
+
