@@ -13,6 +13,8 @@ module.exports = {
         .addNumberOption(option =>
             option.setName('number')
                 .setDescription('Number of quote to be replied!')
+                .setMinValue(1)
+                .setMaxValue(quoteTotal)
                 .setRequired(true)),
     async execute(interaction) {
         // Load jsonData
@@ -50,4 +52,5 @@ module.exports = {
         interaction.editReply({ embeds: [quote_addedEmbed] });
     }
 };
+
 
