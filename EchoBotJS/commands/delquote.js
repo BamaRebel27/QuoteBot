@@ -13,6 +13,8 @@ module.exports = {
         .addNumberOption(option =>
             option.setName('number')
                 .setDescription('What quote number you want to delete!')
+                .setMinValue(1)
+                .setMaxValue(quoteTotal)
                 .setRequired(true)),
         
     async execute(interaction) {
